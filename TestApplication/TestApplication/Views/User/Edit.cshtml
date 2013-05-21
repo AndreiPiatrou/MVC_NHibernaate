@@ -1,0 +1,27 @@
+﻿@model TestApplication.Models.User
+
+@{
+    ViewBag.Title = "Edit user";
+}
+
+<h2>Edit user</h2>
+
+@using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "TestApplication.Models.User" }))
+{
+    <div>
+        @Html.LabelFor(x => x.FirstName)
+        @Html.EditorFor(x => x.FirstName)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.LastName)
+        @Html.EditorFor(x => x.LastName)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.Birthday)
+        @Html.EditorFor(x => x.Birthday)
+    </div>
+    <div>
+        <button type="submit" class="ui-button-text">Save</button>
+        @Html.ActionLink("Cancel", "UserList", "User")
+    </div>
+}
