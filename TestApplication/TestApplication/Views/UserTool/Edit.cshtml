@@ -1,0 +1,19 @@
+﻿@model TestApplication.Models.UserTool
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit user tool</title>
+</head>
+<body>
+    <div>
+        @Html.LabelFor(x => x.Name)
+        @Html.EditorForModel()
+    </div>
+</body>
+</html>

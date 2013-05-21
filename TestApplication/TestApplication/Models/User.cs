@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace TestApplication.Models
 {
-    public class User
+    public class User : IEntity<int>
     {
         private int id;
 
