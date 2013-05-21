@@ -1,19 +1,10 @@
 ﻿@model TestApplication.Models.UserTool
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Edit user tool</title>
-</head>
-<body>
+@using (Html.BeginForm("Save", "UserTool", FormMethod.Post, new { @class = "TestApplication.Models.User" }))
+{
+    @Html.EditorForModel()
     <div>
-        @Html.LabelFor(x => x.Name)
-        @Html.EditorForModel()
+        <button type="submit" class="ui-dialog-buttonset">Save</button>
+        @Html.ActionLink("Cancel", "UserList", "User")
     </div>
-</body>
-</html>
+}

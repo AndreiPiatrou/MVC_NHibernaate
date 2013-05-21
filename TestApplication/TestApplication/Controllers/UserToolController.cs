@@ -24,5 +24,18 @@ namespace TestApplication.Controllers
         {
             return View(id > 0 ? service.GetByIdEntity(id) : new UserTool(-1, DateTime.Now));
         }
+
+        public ActionResult Delete(int id)
+        {
+            service.Delete(id);
+            return RedirectToAction("All");
+        }
+
+        public ActionResult Save(UserTool userTool)
+        {
+            service.SaveEntity(userTool);
+
+            return RedirectToAction("All");
+        }
     }
 }
