@@ -6,7 +6,11 @@
 
 <h2>Edit user</h2>
 
-@using (Html.BeginForm("Save", "User", FormMethod.Post, new { @class = "TestApplication.Models.User" }))
+<div>
+    @Html.ValidationSummary(false, "There are some errors!")
+</div>
+
+@using (Ajax.BeginForm("Save", "User", new AjaxOptions { HttpMethod = "Post" }))
 {
     <div>
         @Html.LabelFor(x => x.FirstName)
@@ -21,7 +25,7 @@
         @Html.EditorFor(x => x.Birthday)
     </div>
     <div>
-        <button type="submit" class="ui-button-text">Save</button>
-        @Html.ActionLink("Cancel", "All", "UserTool")
+        <button type="submit" class="ui-button-text">Save user</button>
+        @Html.ActionLink("Cancel", "UserList", "User")
     </div>
 }

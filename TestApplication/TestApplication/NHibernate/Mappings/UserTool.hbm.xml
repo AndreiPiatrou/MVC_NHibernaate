@@ -7,6 +7,7 @@
     <id name="Id"  type="Int32" column="Id">
       <generator class="native" />
     </id>
+    
     <property name="Name" length="150" type="string" column="Name"></property>
     <property name="Description" length="150" type="string" column="Description"></property>
     <property name="BuyDate" type="DateTime" column="BuyDate"></property>

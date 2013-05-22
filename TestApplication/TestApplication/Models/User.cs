@@ -35,6 +35,7 @@ namespace TestApplication.Models
         }
 
         [DataMember]
+        [Required(ErrorMessage = "Please enter first name")]
         [DisplayName("First name")]
         public virtual string FirstName
         {
@@ -50,6 +51,7 @@ namespace TestApplication.Models
         }
 
         [DataMember]
+        [Required(ErrorMessage = "Please enter last name")]
         [DisplayName("Last name")]
         public virtual string LastName
         {
@@ -65,6 +67,7 @@ namespace TestApplication.Models
 
         [DataMember]
         [DisplayName("Birthday")]
+        [Required]
         [DataType(DataType.DateTime)]
         public virtual DateTime Birthday
         {

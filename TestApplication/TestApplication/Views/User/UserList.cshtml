@@ -1,20 +1,36 @@
-﻿@using TestApplication.Models
-@model User
+﻿@using System.Globalization
+@using System.Web.Mvc.Html
+@using TestApplication.Models
+
+@model TestApplication.Controllers.UserEditorModel
 
 @{
     ViewBag.Title = "All users";
+    List<SelectListItem> collection = new List<SelectListItem>();
 }
 
-<h2>All users</h2>
-<label>@Html.ActionLink("Add new user", "Edit", "User", new { id = -1 }, null)</label>
+<h4>All users</h4>
+<label>@Ajax.ActionLink("Add new user", "Edit", "User", new { id = -1 }, null)</label>
 
-@foreach (User user in ViewBag.Users)
-{
-    <label style="display: inline">
-        @user.FirstName &nbsp; 
-        @user.LastName &nbsp;  
-        @Html.ActionLink("Edit", "Edit", "User", new { id = user.Id }, null)
-        @Html.ActionLink("Delete", "Delete", "User", new { id = user.Id }, null)
-    </label>
-    <br />
-}
+<div id="updateContainer">
+
+    <table>
+
+        @foreach (User user in Model.Users)
+        {
+            collection.Add(new SelectListItem
+            {
+                Text = user.FirstName,
+                Value = user.Id.ToString(CultureInfo.InvariantCulture)
+            });
+            <tr>
+                <td>
+                    <label>@user.FirstName &nbsp; @user.LastName</label></td>
+                <td>@Ajax.ActionLink("Edit", "Edit", "User", new { id = user.Id }, null)</td>
+                <td>@Ajax.ActionLink("Delete", "Delete", "User", new { id = user.Id }, null)</td>
+            </tr>
+        }
+
+    </table>
+</div>
+

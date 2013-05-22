@@ -18,7 +18,7 @@ namespace TestApplication.WebServices
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
     /// <typeparam name="TId">Entity id.</typeparam>
-    public class NHibernateService<TEntity, TId> where TEntity : class, IEntity<TId>
+    public abstract class NHibernateService<TEntity, TId> where TEntity : class, IEntity<TId>
     {
         /// <summary>
         ///     Session factory.
