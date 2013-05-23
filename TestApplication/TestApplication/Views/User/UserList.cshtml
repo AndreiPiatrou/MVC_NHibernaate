@@ -52,12 +52,30 @@
         <img src="/Images/preloader.gif" width="100" />
     </div>
 
+    <p>
+        <label for="users">Find users</label>
+        <input id="users" type="text" />
+    </p>
+
     <div id="userTools">
         @if (ViewBag.Tools != null)
         {
             Html.RenderAction("GetTools", (List<UserTool>)ViewBag.Tools);
         }
     </div>
+    
+    <script>
+        $(function($) {
+            var autoCompleteUrl = '@Url.Action("SearchUser")';
+            $("input#users").autocomplete({
+                source: autoCompleteUrl,
+                minLength: 2,
+                select: function(event, ui) {
+                    alert("You selected: " + ui.item.label);
+                }
+            });
+        });
+    </script>
 
 </div>
 

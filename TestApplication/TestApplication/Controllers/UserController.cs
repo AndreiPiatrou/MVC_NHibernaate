@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
+using NHibernate.Criterion;
+
 using TestApplication.Models;
 using TestApplication.WebServices;
 
@@ -83,6 +85,25 @@ namespace TestApplication.Controllers
             var tools = toolsService.GetAll();
             ViewBag.Tools = tools;
             return PartialView();
+        }
+
+        public ActionResult SearchUser(string term)
+        {
+            var formattedname = string.Format("%{0}%", term.ToLower());
+            var results =
+                service.FindByexpression(
+                    user => user.FirstName.IsLike(formattedname) || user.LastName.IsLike(formattedname));
+
+            var jsonResult = from user in results
+                             select
+                                 new
+                                 {
+                                     id = user.Id,
+                                     label = string.Format("{0} {1}", user.FirstName, user.LastName),
+                                     value = string.Format("{0} {1}", user.FirstName, user.LastName)
+                                 };
+
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

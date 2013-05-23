@@ -1,7 +1,9 @@
 ﻿#region [Imports]
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 using NHibernate;
@@ -86,7 +88,17 @@ namespace TestApplication.WebServices
 
             return true;
         }
-        
+
+        /// <summary>
+        /// Search entities by expression.
+        /// </summary>
+        /// <param name="expression">Search expression.</param>
+        /// <returns>Search results.</returns>
+        public List<TEntity> FindByexpression(Expression<Func<TEntity, bool>> expression)
+        {
+            return OpenSession().QueryOver<TEntity>().Where(expression).List().ToList();
+        }
+
         /// <summary>
         ///     Open n-hibernate session.
         /// </summary>
