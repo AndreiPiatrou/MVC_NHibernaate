@@ -98,7 +98,7 @@ namespace TestApplication.Models
         }
 
         [DisplayName("Buy date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public virtual DateTime BuyDate
         {
             get

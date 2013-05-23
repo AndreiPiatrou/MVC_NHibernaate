@@ -1,5 +1,7 @@
 ﻿#region [Imports]
 
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,6 +18,7 @@ namespace TestApplication.Controllers
     public class UserController : Controller
     {
         private readonly UserService service = new UserService();
+        private readonly DepartmentService departmentService = new DepartmentService();
 
         public User CurrentUser { get; set; }
 
@@ -33,6 +36,10 @@ namespace TestApplication.Controllers
         public ActionResult Edit(int id)
         {
             var user = id > 0 ? service.GetByIdEntity(id) : new User { Id = id };
+            var departmentsList = new DepartmentService().GetAll().Select(department => new SelectListItem() { Value = department.Id.ToString(CultureInfo.InvariantCulture), Text = department.Name }).ToList();
+
+            ViewBag.Departments = departmentsList;
+            user.DepartmentId = user.Department.Id;
             return View(user);
         }
 
@@ -59,11 +66,23 @@ namespace TestApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var departmentsList = departmentService.GetAll().Select(department => new SelectListItem() { Value = department.Id.ToString(CultureInfo.InvariantCulture), Text = department.Name }).ToList();
+                ViewBag.Departments = departmentsList;
                 return View("Edit", usertosave);
             }
 
+            usertosave.Department = departmentService.GetByIdEntity(usertosave.DepartmentId);
             service.SaveEntity(usertosave);
             return RedirectToAction("UserList");
+        }
+
+        public ActionResult GetTools()
+        {
+            System.Threading.Thread.Sleep(2000);
+            var toolsService = new UserToolService();
+            var tools = toolsService.GetAll();
+            ViewBag.Tools = tools;
+            return PartialView();
         }
     }
 }

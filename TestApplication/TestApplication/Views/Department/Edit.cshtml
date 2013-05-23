@@ -1,0 +1,14 @@
+﻿@model TestApplication.Models.Department
+
+
+<div>
+    @using (Html.BeginForm("Save", "Department",  FormMethod.Post))
+    {
+        @Html.EditorForModel()
+
+        <div>
+            <button type="submit" class="ui-button-text">Save user</button>
+            @Html.ActionLink("Cancel", "All", "Department")
+        </div>
+    }
+</div>

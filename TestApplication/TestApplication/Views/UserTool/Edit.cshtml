@@ -2,9 +2,22 @@
 
 @using (Html.BeginForm("Save", "UserTool", FormMethod.Post, new { @class = "TestApplication.Models.User" }))
 {
-    @Html.EditorForModel()
+    @Html.HiddenFor(x => x.Id)
+    @Html.LabelFor(x => x.Name)
+    @Html.EditorFor(x => x.Name)
+    @Html.LabelFor(x => x.Description)
+    @Html.EditorFor(x => x.Description)
+    @Html.LabelFor(x => x.BuyDate)
+    @Html.TextBox("BuyDate", Model.BuyDate.ToString("dd/MM/yyyy"), new { @id = "date"})
     <div>
         <button type="submit" class="ui-dialog-buttonset">Save</button>
         @Html.ActionLink("Cancel", "All", "UserTool")
     </div>
 }
+<script>
+    $(document).ready(function ($) {
+        $('#date').datepicker(
+            { dateFormat: "dd/mm/yy" }
+        );
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿@using System.Globalization
+@using TestApplication.Models
+@model List<UserTool>
+
+<section id="list">
+    @if (ViewBag.Tools != null)
+    {
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Buy date</td>
+                <td>Description</td>
+            </tr>
+
+            @foreach (UserTool tool in ViewBag.Tools)
+            {
+                <tr>
+                    <td>@Html.Label(tool.Name)</td>
+                    <td>@Html.Label(tool.BuyDate.ToString(CultureInfo.InvariantCulture))</td>
+                    <td>@Html.Label(tool.Description)</td>
+                </tr>
+            }
+        </table>
+    }
+</section>

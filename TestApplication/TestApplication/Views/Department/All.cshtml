@@ -1,0 +1,20 @@
+﻿@model List<TestApplication.Models.Department>
+
+<div>
+    @Html.ActionLink("Add", "Edit", "Department", new { id = -1 }, null)
+    <table>
+        <tr>
+            <td>Departmant name</td>
+            <td>Description</td>
+        </tr>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@Html.Label(department.Name)</td>
+                <td>@Html.Label(department.Description)</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Department", new { id = department.Id }, null)</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Department", new { id = department.Id }, null)</td>
+            </tr>
+        }
+    </table>
+</div>

@@ -54,6 +54,7 @@ namespace TestApplication.WebServices
         {
             ISession session = OpenSession();
             ITransaction tran = session.BeginTransaction();
+
             session.SaveOrUpdate(entity);
             tran.Commit();
 

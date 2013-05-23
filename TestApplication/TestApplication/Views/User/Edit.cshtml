@@ -1,4 +1,5 @@
-﻿@model TestApplication.Models.User
+﻿@using TestApplication.Models
+@model TestApplication.Models.User
 
 @{
     ViewBag.Title = "Edit user";
@@ -10,22 +11,46 @@
     @Html.ValidationSummary(false, "There are some errors!")
 </div>
 
-@using (Ajax.BeginForm("Save", "User", new AjaxOptions { HttpMethod = "Post" }))
+@using (Html.BeginForm("Save", "User", new AjaxOptions { HttpMethod = "Post" }))
 {
     <div>
+        @Html.HiddenFor(x => x.Id)
         @Html.LabelFor(x => x.FirstName)
-        @Html.EditorFor(x => x.FirstName)
+        <span>
+            @Html.EditorFor(x => x.FirstName)
+            @Html.ValidationMessageFor(x => x.FirstName)
+        </span>
+
     </div>
     <div>
         @Html.LabelFor(x => x.LastName)
-        @Html.EditorFor(x => x.LastName)
+        <span>
+            @Html.EditorFor(x => x.LastName)
+            @Html.ValidationMessageFor(x => x.LastName)
+        </span>
     </div>
     <div>
         @Html.LabelFor(x => x.Birthday)
-        @Html.EditorFor(x => x.Birthday)
+        <span>
+            @Html.TextBox("Birthday", Model.Birthday.ToString("dd/MM/yyyy"), new { @id = "date" })
+            @Html.ValidationMessageFor(x => x.Birthday)
+        </span>
     </div>
     <div>
+        @Html.LabelFor(x => x.Department)
+        @Html.DropDownListFor(x => x.DepartmentId, (List<SelectListItem>)ViewBag.Departments, new { @style = "width: 300px" })
+    </div>
+    <div style="margin-top: 20px">
         <button type="submit" class="ui-button-text">Save user</button>
         @Html.ActionLink("Cancel", "UserList", "User")
     </div>
 }
+<script>
+    /// <reference path="jquery-1.4.4.js" />
+    /// <reference path="jquery-ui.js" />
+    $(document).ready(function ($) {
+        $('#date').datepicker(
+            { dateFormat: "dd/mm/yy" }
+        );
+    });
+</script>

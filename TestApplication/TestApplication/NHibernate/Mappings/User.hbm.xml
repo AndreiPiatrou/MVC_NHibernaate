@@ -5,11 +5,13 @@
                    auto-import="true">
   <class name="TestApplication.Models.User" table="[User]" catalog="[UsersDB].[dbo]">
     <id name="Id"  type="Int32" column="Id">
-      <generator class="native" />
+      <generator class="identity" />
     </id>
     <property name="FirstName" length="150" type="string" column="FirstName"></property>
     <property name="LastName" length="150" type="string" column="LastName"></property>
     <property name="Birthday" type="DateTime" column="Birthday"></property>
-
+    
+    <many-to-one name="Department" column="DepartmentId" class="Department" cascade="none" lazy="false" />
+    
   </class>
 </hibernate-mapping>

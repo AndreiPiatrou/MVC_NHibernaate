@@ -10,11 +10,16 @@
 }
 
 <h4>All users</h4>
-<label>@Ajax.ActionLink("Add new user", "Edit", "User", new { id = -1 }, null)</label>
+<label>@Html.ActionLink("Add new user", "Edit", "User", new { id = -1 }, null)</label>
 
 <div id="updateContainer">
 
     <table>
+
+        <tr>
+            <td>Name</td>
+            <td>Department</td>
+        </tr>
 
         @foreach (User user in Model.Users)
         {
@@ -25,12 +30,34 @@
             });
             <tr>
                 <td>
-                    <label>@user.FirstName &nbsp; @user.LastName</label></td>
-                <td>@Ajax.ActionLink("Edit", "Edit", "User", new { id = user.Id }, null)</td>
-                <td>@Ajax.ActionLink("Delete", "Delete", "User", new { id = user.Id }, null)</td>
+                    <label>@user.FirstName &nbsp; @user.LastName</label>
+                </td>
+                <td>@user.Department.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "User", new { id = user.Id }, null)</td>
+                <td>@Html.ActionLink("Delete", "Delete", "User", new { id = user.Id }, null)
+                </td>
             </tr>
         }
 
     </table>
+    @Ajax.ActionLink("Show user tools by ajax", "GetTools", "User", new AjaxOptions
+    {
+        UpdateTargetId = "userTools",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        LoadingElementId = "preloader"
+    })
+
+    <div id="preloader" style="display: none">
+        <img src="/Images/preloader.gif" width="100" />
+    </div>
+
+    <div id="userTools">
+        @if (ViewBag.Tools != null)
+        {
+            Html.RenderAction("GetTools", (List<UserTool>)ViewBag.Tools);
+        }
+    </div>
+
 </div>
 

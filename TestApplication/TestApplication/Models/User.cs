@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace TestApplication.Models
 {
@@ -14,6 +16,8 @@ namespace TestApplication.Models
         private string lastName;
 
         private DateTime birthday;
+
+        private Department department;
 
         public User()
         {
@@ -68,7 +72,7 @@ namespace TestApplication.Models
         [DataMember]
         [DisplayName("Birthday")]
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public virtual DateTime Birthday
         {
             get
@@ -80,5 +84,22 @@ namespace TestApplication.Models
                 birthday = value;
             }
         }
+
+        [HiddenInput(DisplayValue = false)]
+        [DisplayName("Department")]
+        public virtual Department Department
+        {
+            get
+            {
+                return department;
+            }
+            set
+            {
+                department = value;
+            }
+        }
+
+        [DisplayName("Department")]
+        public virtual int DepartmentId { get; set; }
     }
 }
