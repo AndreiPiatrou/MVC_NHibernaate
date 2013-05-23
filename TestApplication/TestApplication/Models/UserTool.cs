@@ -3,8 +3,8 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 #endregion
 
@@ -63,7 +63,7 @@ namespace TestApplication.Models
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
-        [Key]
+        [DataMember]
         [HiddenInput(DisplayValue = false)]
         public virtual int Id
         {

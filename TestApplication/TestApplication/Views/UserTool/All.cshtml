@@ -2,7 +2,7 @@
 @model UserTool
 
 <h2>All users</h2>
-<label>@Html.ActionLink("Add new user", "Edit", "UserTool", new { id = -1 }, null)</label>
+<label>@Html.ActionLink("Add new user", "Edit", "UserTool", new { id = 0 }, null)</label>
 
 @foreach (UserTool user in ViewBag.UserTools)
 {

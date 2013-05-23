@@ -10,12 +10,11 @@
 }
 
 <h4>All users</h4>
-<label>@Html.ActionLink("Add new user", "Edit", "User", new { id = -1 }, null)</label>
+<label>@Html.ActionLink("Add new user", "Edit", "User", new { id = 0 }, null)</label>
 
 <div id="updateContainer">
 
     <table>
-
         <tr>
             <td>Name</td>
             <td>Department</td>
@@ -28,6 +27,7 @@
                 Text = user.FirstName,
                 Value = user.Id.ToString(CultureInfo.InvariantCulture)
             });
+            
             <tr>
                 <td>
                     <label>@user.FirstName &nbsp; @user.LastName</label>
@@ -40,6 +40,39 @@
         }
 
     </table>
+
+    <div>
+        Page @(Model.Users.PageCount < Model.Users.PageNumber ? 0 : Model.Users.PageNumber) of @Model.Users.PageCount 
+
+        @if (Model.Users.HasPreviousPage)
+        {
+            @Html.ActionLink("<<", "UserList", new { page = 1 })
+            @Html.Raw(" ");
+            @Html.ActionLink("< Prev", "UserList", new { page = Model.Users.PageNumber - 1 })
+        }
+        else
+        {
+            @:<<
+            @Html.Raw(" ");
+            @:< Prev
+    }
+
+        @if (Model.Users.HasNextPage)
+        {
+            @Html.ActionLink("Next >", "UserList", new { page = Model.Users.PageNumber + 1 })
+            @Html.Raw(" ");
+            @Html.ActionLink(">>", "UserList", new { page = Model.Users.PageCount })
+        }
+        else
+        {
+            @:Next >
+            @Html.Raw(" ")
+            @:>>
+    }
+    </div>
+
+
+
     @Ajax.ActionLink("Show user tools by ajax", "GetTools", "User", new AjaxOptions
     {
         UpdateTargetId = "userTools",
@@ -63,14 +96,14 @@
             Html.RenderAction("GetTools", (List<UserTool>)ViewBag.Tools);
         }
     </div>
-    
+
     <script>
-        $(function($) {
+        $(function ($) {
             var autoCompleteUrl = '@Url.Action("SearchUser")';
             $("input#users").autocomplete({
                 source: autoCompleteUrl,
                 minLength: 2,
-                select: function(event, ui) {
+                select: function (event, ui) {
                     alert("You selected: " + ui.item.label);
                 }
             });

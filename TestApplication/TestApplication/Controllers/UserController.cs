@@ -7,6 +7,8 @@ using System.Web.Mvc;
 
 using NHibernate.Criterion;
 
+using PagedList;
+
 using TestApplication.Models;
 using TestApplication.WebServices;
 
@@ -19,21 +21,29 @@ namespace TestApplication.Controllers
     /// </summary>
     public class UserController : Controller
     {
+
+        private const int UsersPerPage = 5;
         private readonly UserService service = new UserService();
         private readonly DepartmentService departmentService = new DepartmentService();
 
         public User CurrentUser { get; set; }
 
+        #region [Show users]
+
         /// <summary>
         ///     Show user list.
         /// </summary>
         /// <returns>User list.</returns>
-        public ActionResult UserList()
+        public ActionResult UserList(int? page)
         {
             var allUsers = service.GetAll();
-            var model = new UserEditorModel { Users = allUsers, CurrentUser = allUsers.FirstOrDefault() };
+            var model = new UserEditorModel { Users = allUsers.ToPagedList(page.HasValue ? page.Value : 1, UsersPerPage), CurrentUser = allUsers.FirstOrDefault() };
             return View(model);
         }
+
+        #endregion
+
+        #region [Edit]
 
         public ActionResult Edit(int id)
         {
@@ -41,7 +51,11 @@ namespace TestApplication.Controllers
             var departmentsList = new DepartmentService().GetAll().Select(department => new SelectListItem() { Value = department.Id.ToString(CultureInfo.InvariantCulture), Text = department.Name }).ToList();
 
             ViewBag.Departments = departmentsList;
-            user.DepartmentId = user.Department.Id;
+            if (user.Department != null)
+            {
+                user.DepartmentId = user.Department.Id;
+            }
+
             return View(user);
         }
 
@@ -57,11 +71,19 @@ namespace TestApplication.Controllers
             return RedirectToAction("UserList");
         }
 
+        #endregion
+
+        #region [Delete]
+
         public ActionResult Delete(int id)
         {
             service.Delete(id);
             return RedirectToAction("UserList");
         }
+
+        #endregion
+
+        #region [Save]
 
         [HttpPost]
         public ActionResult Save(User usertosave)
@@ -77,6 +99,10 @@ namespace TestApplication.Controllers
             service.SaveEntity(usertosave);
             return RedirectToAction("UserList");
         }
+
+        #endregion
+
+        #region [Different methods]
 
         public ActionResult GetTools()
         {
@@ -105,5 +131,7 @@ namespace TestApplication.Controllers
 
             return Json(jsonResult, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
     }
 }

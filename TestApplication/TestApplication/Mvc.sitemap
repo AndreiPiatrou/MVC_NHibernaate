@@ -4,8 +4,8 @@
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
             enableLocalization="true">
 
-  <mvcSiteMapNode title="Main" controller="Home" action="Index">
-    <mvcSiteMapNode title="Users" controller="User" action="UserList"/>
+  <mvcSiteMapNode title="Main" controller="Home" action="Index" >
+    <mvcSiteMapNode title="Users" controller="User" action="UserList" />
     <mvcSiteMapNode title="Departments" controller="Department" action="All"/>
     <mvcSiteMapNode title="User tools" controller="UserTool" action="All"/>
   </mvcSiteMapNode>

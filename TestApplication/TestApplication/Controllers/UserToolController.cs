@@ -25,6 +25,12 @@ namespace TestApplication.Controllers
             return View(id > 0 ? service.GetByIdEntity(id) : new UserTool(-1, DateTime.Now));
         }
 
+        [HttpPost]
+        public ActionResult Edit(UserTool userTool)
+        {
+            return View(userTool);
+        }
+
         public ActionResult Delete(int id)
         {
             service.Delete(id);
@@ -33,8 +39,12 @@ namespace TestApplication.Controllers
 
         public ActionResult Save(UserTool userTool)
         {
-            service.SaveEntity(userTool);
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", userTool);
+            }
 
+            service.SaveEntity(userTool);
             return RedirectToAction("All");
         }
     }

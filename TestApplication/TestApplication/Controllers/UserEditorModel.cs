@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-
-using TestApplication.Models;
+﻿using TestApplication.Models;
 
 namespace TestApplication.Controllers
 {
     public class UserEditorModel
     {
-        public List<User> Users { get; set; }
+        public PagedList.IPagedList<User> Users { get; set; }
 
         public User CurrentUser { get; set; }
 

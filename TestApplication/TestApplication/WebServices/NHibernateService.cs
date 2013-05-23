@@ -40,6 +40,20 @@ namespace TestApplication.WebServices
         }
 
         /// <summary>
+        ///     GEt entities with offset.
+        /// </summary>
+        /// <param name="page">Current page offset.</param>
+        /// <param name="countPerPage">Count per page.</param>
+        /// <returns>Entities collection.</returns>
+        public List<TEntity> GetEntitiesPerPage(int page, int countPerPage)
+        {
+            using (ISession session = OpenSession())
+            {
+                return session.QueryOver<TEntity>().Skip(page * countPerPage).Take(countPerPage).List<TEntity>().ToList();
+            }
+        }
+
+        /// <summary>
         ///     Gets entity by id.
         /// </summary>
         /// <param name="id"></param>
