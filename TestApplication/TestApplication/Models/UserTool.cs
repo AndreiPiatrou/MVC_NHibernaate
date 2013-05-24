@@ -63,7 +63,7 @@ namespace TestApplication.Models
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
-        [DataMember]
+        [Key]
         [HiddenInput(DisplayValue = false)]
         public virtual int Id
         {

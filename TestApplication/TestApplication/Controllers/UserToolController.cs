@@ -37,6 +37,7 @@ namespace TestApplication.Controllers
             return RedirectToAction("All");
         }
 
+        [HttpPost]
         public ActionResult Save(UserTool userTool)
         {
             if (!ModelState.IsValid)

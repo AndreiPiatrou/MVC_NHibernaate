@@ -1,8 +1,9 @@
 ﻿@model TestApplication.Models.UserTool
 
-@using (Html.BeginForm("Save", "UserTool", FormMethod.Post, new { @class = "TestApplication.Models.User" }))
+@using (Html.BeginForm("Save", "UserTool", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.Id)
+
     @Html.LabelFor(x => x.Name)
     @Html.EditorFor(x => x.Name)
     @Html.LabelFor(x => x.Description)

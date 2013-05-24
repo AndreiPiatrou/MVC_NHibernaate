@@ -71,7 +71,15 @@ namespace TestApplication.WebServices
             ISession session = OpenSession();
             ITransaction tran = session.BeginTransaction();
 
-            session.SaveOrUpdate(entity);
+            if (entity.Id.Equals(default(TId)))
+            {
+                entity.Id = (TId)session.Save(entity);
+            }
+            else
+            {
+                session.Update(entity);
+            }
+
             tran.Commit();
 
             return entity;
