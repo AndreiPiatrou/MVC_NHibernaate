@@ -21,13 +21,16 @@ namespace TestApplication.Controllers
     /// </summary>
     public class UserController : Controller
     {
+        #region [Private fields]
 
         private const int UsersPerPage = 5;
         private readonly UserService service = new UserService();
         private readonly DepartmentService departmentService = new DepartmentService();
 
-        public User CurrentUser { get; set; }
+        #endregion
 
+        public User CurrentUser { get; set; }
+        
         #region [Show users]
 
         /// <summary>
@@ -48,9 +51,17 @@ namespace TestApplication.Controllers
         public ActionResult Edit(int id)
         {
             var user = id > 0 ? service.GetByIdEntity(id) : new User { Id = id };
-            var departmentsList = new DepartmentService().GetAll().Select(department => new SelectListItem() { Value = department.Id.ToString(CultureInfo.InvariantCulture), Text = department.Name }).ToList();
+            ViewBag.Departments =
+                new DepartmentService().GetAll()
+                    .Select(
+                        department =>
+                            new SelectListItem
+                            {
+                                Value = department.Id.ToString(CultureInfo.InvariantCulture),
+                                Text = department.Name
+                            })
+                    .ToList();
 
-            ViewBag.Departments = departmentsList;
             if (user.Department != null)
             {
                 user.DepartmentId = user.Department.Id;
@@ -90,8 +101,17 @@ namespace TestApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var departmentsList = departmentService.GetAll().Select(department => new SelectListItem() { Value = department.Id.ToString(CultureInfo.InvariantCulture), Text = department.Name }).ToList();
-                ViewBag.Departments = departmentsList;
+                ViewBag.Departments =
+                    departmentService.GetAll()
+                        .Select(
+                            department =>
+                                new SelectListItem
+                                {
+                                    Value = department.Id.ToString(CultureInfo.InvariantCulture),
+                                    Text = department.Name
+                                })
+                        .ToList();
+
                 return View("Edit", usertosave);
             }
 
