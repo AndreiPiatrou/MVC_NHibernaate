@@ -115,10 +115,7 @@ namespace TestApplication.Controllers
 
         public ActionResult SearchUser(string term)
         {
-            var formattedname = string.Format("%{0}%", term.ToLower());
-            var results =
-                service.FindByexpression(
-                    user => user.FirstName.IsLike(formattedname) || user.LastName.IsLike(formattedname));
+            var results = service.FindByString(term);
 
             var jsonResult = from user in results
                              select

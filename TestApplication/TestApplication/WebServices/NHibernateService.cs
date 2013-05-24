@@ -66,6 +66,12 @@ namespace TestApplication.WebServices
             }
         }
 
+        /// <summary>
+        ///     Save entity.
+        ///     For correct saving entity id must be of default or none.
+        /// </summary>
+        /// <param name="entity">Entity to save.</param>
+        /// <returns>Saved entity with id.</returns>
         public TEntity SaveEntity(TEntity entity)
         {
             ISession session = OpenSession();
